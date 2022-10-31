@@ -523,12 +523,12 @@ To test it out, try filtering the name column
     {
         Console.WriteLine(args.PropertyName); // get the setting that was just changed (paging, sorting,...)
 
-        if (args.PropertyName == "FilterDescriptors") // sorting changed for our example
+        if (args.PropertyName == nameof(args.GridState.FilterDescriptors)) // sorting changed for our example
         {
             // ensure certain state based on some condition
             // in this example - ensure that the ID field is always filtered with a certain setting unless the user filters it explicitly
             bool isIdFiltered = false;
-            foreach (FilterDescriptor item in args.GridState.FilterDescriptors)
+            foreach (var item in args.GridState.FilterDescriptors.OfType<FilterDescriptor>())
             {
                 if(item.Member == "Id")
                 {
